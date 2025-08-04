@@ -434,21 +434,34 @@ svg {
 .progress-bar {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 12px;
+  width: 100%;
+  max-width: 500px;
 }
 .progress-bar > p {
-  font-size: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16.5px;
   font-weight: 600;
-  color: rgb(77, 77, 77);
+  color: #b3b3b3;
+  min-width: 40px;
+  text-align: center;
+
 }
 
 .panel {
+  height: 83px;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  align-content: space-between;
+  align-content: center;
   align-items: center;
   overflow: hidden;
+  gap: 8px;
+  background-color: rgb(18, 18, 18);
+  border-radius: 10px;
+  padding: 6px 5px 1px 5px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 9px;
 }
 
 .controls {
@@ -500,12 +513,19 @@ svg {
   height: 70px;
   border-radius:8px;
   width: min-content;
+  gap: 8px;
+  justify-content: flex-end;
 }
 
 .volume > img {
-  width: 20px;
   padding: 4px;
   fill: #b3b3b3;
+  width: 28x;
+  height: 28px;
+  cursor: pointer;
+  opacity: 0.7;
+  flex-shrink: 0;
+  transition: opacity 0.2s; 
 }
 
 svg:hover {
@@ -1034,15 +1054,6 @@ body.bright-mode .hamburger:hover {
   fill: #1db954;
   flex-shrink: 0;
 }
-
-.panel {
-  gap: 8px;
-  background-color: rgb(18, 18, 18);
-  border-radius: 8px;
-  padding:5px;
-  transition: background-color 0.3s ease;
-}
-
 body.bright-mode .panel {
   background-color: #ffffff !important;
 }
@@ -1073,22 +1084,6 @@ body.bright-mode .panel {
   padding: 8px;
 }
 
-.progress-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  max-width: 500px;
-}
-
-.progress-bar p {
-  font-size: 11px;
-  font-weight: 400;
-  color: #b3b3b3;
-  min-width: 40px;
-  text-align: center;
-}
-
 .bar {
   flex: 1;
   height: 4px;
@@ -1105,21 +1100,6 @@ body.bright-mode .panel {
   border-radius: 50%;
   background-color: #fff;
   cursor: pointer;
-}
-
-.volume {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-.volume img {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  opacity: 0.7;
-  flex-shrink: 0;
 }
 
 .volume img:hover {
