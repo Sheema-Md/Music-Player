@@ -97,6 +97,7 @@
               id="loop"
               src="images/loop.svg"
               alt="Repeat"
+              aria-label="Repeat"
             />
             <span class="tooltip-text">Repeat</span>
           </div>
@@ -107,6 +108,7 @@
               id="previous"
               src="images/previous.svg"
               alt="Previous"
+              aria-label="Previous"
             />
             <span class="tooltip-text">Previous</span>
           </div>
@@ -116,6 +118,7 @@
               id="play"
               src="images/play.svg"
               alt="Play/Pause"
+              aria-label="Play/Pause"
             />
             <span class="tooltip-text">Play/Pause</span>
           </div>
@@ -126,6 +129,7 @@
               id="next"
               src="images/next.svg"
               alt="Next"
+              aria-label="Next"
             />
             <span class="tooltip-text">Next</span>
           </div>
@@ -136,6 +140,7 @@
               id="shuffle"
               src="images/shuffle.svg"
               alt="Shuffle"
+              aria-label="Shuffle"
             />
             <span class="tooltip-text">Shuffle</span>
           </div>
@@ -155,7 +160,17 @@
 
       </div>
       <div class="volume">
-        <img src="images/volume.svg" alt="" />
+        <div class="tooltip-container" >
+          <img
+            src="images/volume.svg"
+            alt="Volume"
+            title="Volume"
+            role="button"
+            tabindex="0"
+            aria-label="Volume"
+          />
+          <span class="tooltip-text">Volume</span>
+        </div>
         <input id="volume" type="range" max="100" min="0" value="100" />
       </div>
 

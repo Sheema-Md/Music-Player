@@ -211,12 +211,12 @@ async function main() {
 document.querySelector("#volume").addEventListener("change", (e) => {
   currentSong.volume = parseInt(e.target.value) / 100;
   if (currentSong.volume > 0) {
-    document.querySelector(".volume>img").src = "images/volume.svg";
+    document.querySelector(".volume img").src = "images/volume.svg";
   }
 });
 
 // Mute/unmute
-document.querySelector(".volume>img").addEventListener("click", (e) => {
+document.querySelector(".volume img").addEventListener("click", (e) => {
   const volumeInput = document.querySelector("#volume");
 
   if (e.target.src.includes("volume.svg")) {
