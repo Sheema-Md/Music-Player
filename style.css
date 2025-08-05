@@ -889,51 +889,102 @@ body.bright-mode .hamburger:hover {
   font-size: 24px;
   margin-bottom: 20px;
 }
+  .musiccards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+  }
 
-.card {
-  padding: 16px;
-  border-radius: 8px;
-  width: 180px;
-  height: 240px;
-  cursor: pointer;
-  transition: all 0.3s;
-  background-color: rgba(255, 255, 255, 0.05);
-}
+  .card {
+    width: 180px;
+    height: 240px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
 
-.card:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-4px);
-}
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
 
-.card h5 {
-  font-size: 16px;
-  padding: 8px 0 4px 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+  .card:hover .card-inner {
+    transform: rotateY(180deg);
+  }
 
-.card p {
-  font-size: 12px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.7);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+  .card-front,
+  .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
 
-.card img {
-  width: 100%;
-  height: 148px;
-  border-radius: 8px;
-  object-fit: cover;
-}
+  .card-front {
+    background-color: #1e1e1e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px;
+    text-align: center;
+  }
 
-.musiccards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
-}
+  .card-front img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+  }
+
+  .card-front h5 {
+    margin: 5px 0 0;
+  }
+
+  .card-front p {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .card-back {
+    background: #222;
+    color: white;
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .play-button {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #1db954, #1ed760);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(30, 215, 96, 0.5);
+    transition: transform 0.3s;
+  }
+
+  .play-button:hover {
+    transform: scale(1.1);
+  }
+
+  .play-button svg {
+    fill: white;
+    width: 24px;
+    height: 24px;
+  }
+
+
 
 .player {
   width: 100%;
