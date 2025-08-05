@@ -391,37 +391,43 @@ svg {
 }
 
 .current-song {
-  font-size: 15px;
-  width: 285px;
-  font-weight: 400;
-  color: rgb(255, 255, 255);
+  width: 300px;
   display: flex;
+  align-items: center;
+  min-width: 180px;
+  /* Added gap for better spacing */
+  gap: 12px;
 }
 
 .current-song div {
-  width: 90%;
-  padding: 2px;
   display: flex;
   align-items: center;
-  font-size: 10px;
-  font-weight: 300;
-  
-  height: 70px;
+  width: 100%;
 }
 
 .current-song img {
-  height: 50px;
-  margin-right: 10px;
+  height: 56px;
+  width: 56px;
+  margin-right: 12px;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
 
-.current-song div p {
-  font-size: 15px;
-  color: #ffffffd7;
+.current-song p {
+  font-size: 16px; 
+  color: #ffffff;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.current-song div svg {
-  padding-left: 5px;
-  fill: green;
+.current-song svg {
+  margin-left: 8px;
+  width: 16px;
+  height: 16px;
+  fill: #1db954;
+  flex-shrink: 0;
 }
 
 .controls img {
@@ -437,7 +443,7 @@ svg {
 .progress-bar {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   width: 100%;
   max-width: 500px;
 }
@@ -452,17 +458,17 @@ svg {
 }
 
 .panel {
-  height: 83px;
+  height: 95px;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   align-content: center;
   align-items: center;
   overflow: visible;
-  gap: 8px;
+  gap: 10px;
   background-color: rgb(18, 18, 18);
   border-radius: 10px;
-  padding: 6px 5px 1px 5px;
+  padding: 6px 5px 12px 5px;
   transition: background-color 0.3s ease;
   margin-bottom: 9px;
 }
@@ -471,7 +477,7 @@ svg {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .controls img {
@@ -519,6 +525,11 @@ svg {
   gap: 8px;
   justify-content: flex-end;
 }
+.volume .tooltip-container {
+  position: relative; 
+  display: inline-block;
+  cursor: pointer;
+}
 
 .volume .tooltip-container img {
   padding: 4px;
@@ -528,7 +539,7 @@ svg {
   cursor: pointer;
   opacity: 0.7;
   flex-shrink: 0;
-  transition: opacity 0.2s; 
+  transition: transform 0.2s ease, opacity 0.2s ease; 
 }
 
 svg:hover {
@@ -1007,45 +1018,6 @@ body.bright-mode .hamburger:hover {
     height: 24px;
   }
 
-
-
-.current-song {
-  width: 300px;
-  display: flex;
-  align-items: center;
-  min-width: 180px;
-}
-
-.current-song div {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.current-song img {
-  height: 56px;
-  width: 56px;
-  margin-right: 12px;
-  border-radius: 4px;
-  flex-shrink: 0;
-}
-
-.current-song p {
-  font-size: 14px;
-  color: #ffffff;
-  font-weight: 400;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.current-song svg {
-  margin-left: 8px;
-  width: 16px;
-  height: 16px;
-  fill: #1db954;
-  flex-shrink: 0;
-}
 body.bright-mode .panel {
   background-color: #ffffff !important;
 }
@@ -1094,8 +1066,9 @@ body.bright-mode .panel {
   cursor: pointer;
 }
 
-.volume img:hover {
+.volume .tooltip-container img:hover {
   opacity: 1;
+  transform: scale(1.15);
 }
 
 .vol-bar {
