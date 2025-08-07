@@ -72,6 +72,24 @@ aside {
   /* gap: 12px; */
 }
 
+
+button.active {
+  background-color: #1db954;  /* Spotify green */
+  color: white;
+  border-radius: 5px;
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+
+.controls img.active {
+  filter: brightness(1.8) saturate(2);
+  transform: scale(1.2);
+}
+
+
+
+
+
 .header h2 {
   font-size: 26px;
   font-weight: 800;
@@ -380,11 +398,14 @@ svg {
 
 .player {
   width: 99vw;
-  background-color: rgb(0, 0, 0);
+  height: 64px; /* ⬅️ reduced height */
+  background-color: #000;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 12px; /* ⬅️ add padding to avoid edge overflow */
+  box-sizing: border-box;
 }
 
 .current-song {
@@ -425,101 +446,164 @@ svg {
   cursor: pointer;
 }
 
-.bar {
-  height: 3px;
-  width: 400px;
-  background-color: aliceblue;
-}
-
 .progress-bar {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
+.bar {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #1db954 0%, #ccc 0%);
+  cursor: pointer;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Chrome / Safari */
+.bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: white;
+  margin-top: -4px; /* 👈 Adjust this carefully */
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+/* Firefox */
+.bar::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+
+.progress-bar {
+  align-items: center;
+  gap: 10px; 
+  margin-top: 5px;
+}
+
+
 .progress-bar > p {
   font-size: 12px;
-  font-weight: 600;
-  color: rgb(77, 77, 77);
+  font-weight: 500;
+  color: #b3b3b3;
+  min-width: 40px;
+  text-align: center;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
 }
+
 
 .panel {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
-  align-content: space-between;
   align-items: center;
-  overflow: hidden;
+  gap: 12px;
+  padding: 6px 12px;
+  background-color: #111;
+  border-radius: 8px;
+  height: 64px;
 }
 
 .controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .controls img {
   cursor: pointer;
-  opacity: 0.7;
-  width: 32px;
-  height: 32px;
-  background: transparent;
+  opacity: 0.75;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   transition: all 0.25s ease;
 }
+
 .controls img:hover {
   opacity: 1;
-  transform: scale(1.15);
+  transform: scale(1.1);
 }
 
 .controls #play {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   background: #1db954;
   border-radius: 50%;
-  padding: 10px;
+  padding: 8px;
   opacity: 1;
-  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.5);
+  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.4);
   transition: all 0.3s ease;
 }
+
 .controls #play:hover {
   background: #1ed760;
-  transform: scale(1.2);
-  box-shadow: 0 6px 16px rgba(29, 185, 84, 0.7);
-}
-
-.vol-bar {
-  width: 100px;
-  height: 3px;
-  background-color: #ffffff8c;
+  transform: scale(1.15);
+  box-shadow: 0 6px 16px rgba(29, 185, 84, 0.6);
 }
 
 .volume {
   display: flex;
   align-items: center;
-  height: 70px;
-  border-radius:8px;
-  width: min-content;
+  gap: 6px;
+  height: 64px;
+  padding-left: 12px;
+  padding-right: 8px;
+  border-radius: 8px;
+  background-color: transparent;
 }
 
 .volume > img {
-  width: 20px;
-  padding: 4px;
-  fill: #b3b3b3;
+  width: 18px;
+  height: 18px;
+  opacity: 0.75;
+  transition: opacity 0.2s;
 }
 
-svg:hover {
-  fill: rgb(255, 255, 255);
+.volume > img:hover {
+  opacity: 1;
 }
 
-input {
+#volume {
+  width: 90px;
   height: 3px;
-  color: green;
+  background-color: #ffffff8c;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
-.controls > #play {
-  width: 25px;
+#volume::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
 
 @media (max-width: 927px) {
   .current-song {
@@ -986,60 +1070,16 @@ body.bright-mode .hamburger:hover {
 
 
 
-.player {
-  width: 100%;
-  height: 100px;
-  background-color: rgb(24, 24, 24);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
 
-.current-song {
-  width: 300px;
-  display: flex;
-  align-items: center;
-  min-width: 180px;
-}
 
-.current-song div {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
 
-.current-song img {
-  height: 56px;
-  width: 56px;
-  margin-right: 12px;
-  border-radius: 4px;
-  flex-shrink: 0;
-}
-
-.current-song p {
-  font-size: 14px;
-  color: #ffffff;
-  font-weight: 400;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.current-song svg {
-  margin-left: 8px;
-  width: 16px;
-  height: 16px;
-  fill: #1db954;
-  flex-shrink: 0;
-}
-
+/* === Playback Panel Modern Look === */
 .panel {
   gap: 8px;
-  background-color: rgb(18, 18, 18);
-  border-radius: 8px;
-  padding:5px;
+  background-color: #181818;
+  border-radius: 12px;
+  padding: 10px 20px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
   transition: background-color 0.3s ease;
 }
 
@@ -1047,53 +1087,76 @@ body.bright-mode .panel {
   background-color: #ffffff !important;
 }
 
+/* === Controls Styling === */
 .controls {
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: center;
+  gap: 24px;
 }
 
+/* All icons */
 .controls img {
+  width: 28px;
+  height: 28px;
   cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+  opacity: 0.75;
+  transition: transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
 }
-
-
 
 .controls img:hover {
+  transform: scale(1.2);
   opacity: 1;
 }
 
+/* Play button – standout */
 .controls #play {
-  width: 40px;
-  height: 40px;
-  
+  width: 44px;
+  height: 44px;
+  background-color: #1db954;
   border-radius: 50%;
-  padding: 8px;
+  padding: 10px;
+  box-shadow: 0 0 12px rgba(30, 215, 96, 0.6);
+  transition: transform 0.3s ease;
 }
 
+#play:hover {
+  transform: scale(1.3);
+}
+
+/* Active (glowing) state for loop/shuffle */
+.controls img.active {
+  background-color: rgba(30, 215, 96, 0.1);
+  box-shadow: 0 0 10px rgba(30, 215, 96, 0.6);
+  border-radius: 50%;
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+/* === Progress Bar === */
 .progress-bar {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
+  margin-top: 4px;
 }
 
 .progress-bar p {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: #b3b3b3;
   min-width: 40px;
-  text-align: center;
 }
 
 .bar {
   flex: 1;
   height: 4px;
-  background-color: #4f4f4f;
-  border-radius: 2px;
+  appearance: none;
+  background: linear-gradient(to right, #1db954, #1ed760);
+  border-radius: 3px;
   outline: none;
   cursor: pointer;
 }
@@ -1104,55 +1167,65 @@ body.bright-mode .panel {
   height: 12px;
   border-radius: 50%;
   background-color: #fff;
-  cursor: pointer;
+  box-shadow: 0 0 4px #1db954;
+  transition: transform 0.2s;
 }
 
+.bar::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* === Volume Control === */
 .volume {
   display: flex;
   align-items: center;
-  gap: 8px;
-  justify-content: flex-end;
+  gap: 10px;
 }
 
 .volume img {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
   cursor: pointer;
-  opacity: 0.7;
-  flex-shrink: 0;
 }
 
 .volume img:hover {
   opacity: 1;
 }
 
-.vol-bar {
-  width: 93px;
+#volume {
+  width: 100px;
   height: 4px;
   background-color: #4f4f4f;
-  border-radius: 2px;
-  outline: none;
-  cursor: pointer;
-}
-
-.vol-bar::-webkit-slider-thumb {
+  border-radius: 3px;
   appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: #fff;
+  accent-color: #1db954;
   cursor: pointer;
 }
 
-svg {
-  width: 18px;
-  height: 18px;
-  fill: white;
+#volume::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+#play.playing {
+  animation: pulse 1.5s infinite;
 }
 
-svg:hover {
-  fill: rgb(255, 255, 255);
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(30,215,96,0.6); }
+  50% { box-shadow: 0 0 20px rgba(30,215,96,1); }
+  100% { box-shadow: 0 0 10px rgba(30,215,96,0.6); }
 }
+
+
+
+
+
+
+
 
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
@@ -1741,6 +1814,8 @@ body.bright-mode .auth-form input:focus {
     width: 95%;
   }
 }
+
+
 
 /* === BACKDROP === */
 #auth-backdrop {
