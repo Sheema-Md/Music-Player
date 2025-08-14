@@ -49,10 +49,10 @@ A simple and elegant **Music Player Web App** to enjoy your favorite tracks. It 
 ## ScreenShots
 
 1. Home Page in Light Mode
-![Home Page (Light)](screenshots/home.png)
+![Home Page (Light)](https://raw.githubusercontent.com/vaibhavrajharsh/Music-Player/master/Screenshots/home.png)
 
 2. Home Page in Dark Mode
-![Home Page (Dark)](screenshots/dark.png)
+![Home Page (Dark)](https://raw.githubusercontent.com/vaibhavrajharsh/Music-Player/master/Screenshots/dark.png)
 
 ---
 

@@ -32,8 +32,6 @@ main {
     width: 100%;  /* Ensure it stretches full width inside main-content */
 }
 
-
-
 .main-content {
     flex: 1;
     display: flex;
@@ -92,6 +90,7 @@ button.active {
   transform: scale(1.2);
 }
 
+<<<<<<< HEAD
 
 .logo {
     width: 40px; /* Smaller logo */
@@ -99,15 +98,17 @@ button.active {
 }
 
 
+=======
+>>>>>>> 98d87d0ef2ce02818c237bab4aee29feb44ef732
 .header h2 {
   font-size: 26px;
   font-weight: 800;
   letter-spacing: 1px;
-  margin-left: 8px;
-  margin-bottom: 4px;
+  margin-left: 0px;
   color: #1db954;
   cursor: pointer;
-  padding: 15px;
+  padding: 15px  15px 0px 15px;  
+  text-align: center;
 }
 
 .header p {
@@ -141,7 +142,6 @@ aside .header p.active::before {
     background-color: #1db954; /* uses the text color already set */
     border-radius: 2px;
 }
-
 
 #home-logo,
 #searchbar {
@@ -605,15 +605,6 @@ svg {
   cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
-
 @media (max-width: 927px) {
   .current-song {
     width: 200px;
@@ -1076,11 +1067,6 @@ body.bright-mode .hamburger:hover {
     width: 24px;
     height: 24px;
   }
-
-
-
-
-
 
 /* === Playback Panel Modern Look === */
 .panel {
@@ -1842,3 +1828,37 @@ body.bright-mode .auth-form input:focus {
   display: block;
 }
 
+
+.app-title {
+    margin-bottom: 20px;
+    text-align: center;
+    align-items: center;  /* This will center both lines perfectly */
+}
+
+.app-name {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 0;
+    justify-content: center;
+}
+
+.spotify-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.app-subtitle {
+    font-size: 14px;
+    color: #b3b3b3;
+    font-weight: normal;
+    margin: 0;
+    cursor: default;
+    pointer-events: none;
+    text-align: left;
+    padding-top: 0px;
+    padding-left: 15px;    /* Same as h2 left padding to align with icon */
+    margin-left: 0px;      /* Remove any margin-left */
+}
