@@ -70,7 +70,13 @@ aside {
   /* gap: 12px; */
 }
 
-
+.logo-title {
+    display: flex;
+    align-items: center; /* vertical alignment */
+    gap: 2px; /* space between logo and text */
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
 button.active {
   background-color: #1db954;  /* Spotify green */
   color: white;
@@ -84,6 +90,16 @@ button.active {
   transform: scale(1.2);
 }
 
+<<<<<<< HEAD
+
+.logo {
+    width: 40px; /* Smaller logo */
+    height: 40px;
+}
+
+
+=======
+>>>>>>> 98d87d0ef2ce02818c237bab4aee29feb44ef732
 .header h2 {
   font-size: 26px;
   font-weight: 800;
