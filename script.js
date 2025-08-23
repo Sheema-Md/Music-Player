@@ -243,10 +243,15 @@ async function main() {
 
 document.querySelector("#volume").addEventListener("change", (e) => {
   currentSong.volume = parseInt(e.target.value) / 100;
-  document.querySelector(".volume>img").src = currentSong.volume > 0 ? "images/volume.svg" : "images/mute.svg";
+
+  if (currentSong.volume > 0) {
+    document.querySelector(".volume img").src = "images/volume.svg";
+  }
 });
 
-document.querySelector(".volume>img").addEventListener("click", (e) => {
+// Mute/unmute
+document.querySelector(".volume img").addEventListener("click", (e) => {
+
   const volumeInput = document.querySelector("#volume");
   if (e.target.src.includes("volume.svg")) {
     e.target.src = "images/mute.svg";

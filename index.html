@@ -28,21 +28,12 @@
       <!-- Sidebar -->
       <aside>
         <div class="header">
-<<<<<<< HEAD
+
           <div class="logo-title">
             <img src="favicon.ico" alt=""melody logo" class="logo"/>
           <h2>Melody</h2>
           </div>
-=======
-          <div class="app-title">
-            <h2 class="app-name">
-              <img src="favicon.ico" alt="Melody Logo" class="spotify-icon" />
-              Melody
-            </h2>
-            <p class="app-subtitle">Music for everyone</p>
-          </div>
 
->>>>>>> 98d87d0ef2ce02818c237bab4aee29feb44ef732
           <p id="home-logo" class="active">
             <i class="fa-solid fa-house"></i> Home
           </p>
@@ -123,44 +114,63 @@
         </div>
       </div>
       <div class="panel">
-        <div class="controls">
-          <img
-            class="loop"
-            id="loop"
-            src="images/loop.svg"
-            title="Repeat"
-            alt="Repeat"
-          />
 
-          <img
-            class="previous"
-            id="previous"
-            src="images/previous.svg"
-            title="Previous"
-            alt="Previous"
-          />
-          <img
-            id="play"
-            src="images/play.svg"
-            title="Play/Pause"
-            alt="Play/Pause"
-          />
-          <img
-            class="next"
-            id="next"
-            src="images/next.svg"
-            title="Next"
-            alt="Next"
-          />
+      <div class="controls">
+          <div class="tooltip-container">
+            <img
+              class="loop"
+              id="loop"
+              src="images/loop.svg"
+              alt="Repeat"
+              aria-label="Repeat"
+            />
+            <span class="tooltip-text">Repeat</span>
+          </div>
 
-          <img
-            class="shuffle"
-            id="shuffle"
-            src="images/shuffle.svg"
-            title="Shuffle"
-            alt="Shuffle"
-          />
-        </div>
+          <div class="tooltip-container">
+            <img
+              class="previous"
+              id="previous"
+              src="images/previous.svg"
+              alt="Previous"
+              aria-label="Previous"
+            />
+            <span class="tooltip-text">Previous</span>
+          </div>
+
+          <div class="tooltip-container">
+            <img
+              id="play"
+              src="images/play.svg"
+              alt="Play/Pause"
+              aria-label="Play/Pause"
+            />
+            <span class="tooltip-text">Play/Pause</span>
+          </div>
+
+          <div class="tooltip-container">
+            <img
+              class="next"
+              id="next"
+              src="images/next.svg"
+              alt="Next"
+              aria-label="Next"
+            />
+            <span class="tooltip-text">Next</span>
+          </div>
+
+          <div class="tooltip-container">
+            <img
+              class="shuffle"
+              id="shuffle"
+              src="images/shuffle.svg"
+              alt="Shuffle"
+              aria-label="Shuffle"
+            />
+            <span class="tooltip-text">Shuffle</span>
+          </div>
+      </div>
+
         <div class="progress-bar">
           <p class="current-duration">00:00</p>
           <input
@@ -175,7 +185,16 @@
         </div>
       </div>
       <div class="volume">
-        <img src="images/volume.svg" alt="" />
+        <div class="tooltip-container" >
+          <img
+            src="images/volume.svg"
+            alt="Volume"
+            role="button"
+            tabindex="0"
+            aria-label="Volume"
+          />
+          <span class="tooltip-text">Volume</span>
+        </div>
         <input id="volume" type="range" max="100" min="0" value="100" />
       </div>
     </div>
