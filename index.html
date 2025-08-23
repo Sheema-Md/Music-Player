@@ -21,36 +21,38 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
   </head>
-
-
 
   <body>
     <main>
       <!-- Sidebar -->
       <aside>
         <div class="header">
+
+          <div class="logo-title">
+            <img src="favicon.ico" alt=""melody logo" class="logo"/>
           <h2>Melody</h2>
+          </div>
+
           <p id="home-logo" class="active">
             <i class="fa-solid fa-house"></i> Home
           </p>
           <p id="searchbar">
             <i class="fa-solid fa-magnifying-glass"></i> Search
           </p>
-
-
-   
         </div>
 
         <div class="playlist">
-          <p>
+          <p onclick="window.location.href='library.html'" style="cursor:pointer;">
             <svg
               data-encore-id="icon"
               role="img"
               aria-hidden="true"
               viewBox="0 0 24 24"
               class="Svg-sc-ytk21e-0 bneLcE"
+              width="20"
+              height="20"
+              style="vertical-align: middle; margin-right: 6px;"
             >
               <path
                 d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z"
@@ -59,10 +61,32 @@
             Your Library
           </p>
           <div class="lists">
-            <ul></ul>
+            <ul id="libraryList"></ul>
           </div>
         </div>
       </aside>
+
+      <script>
+        // Load saved songs in the sidebar
+        const libraryList = document.getElementById("libraryList");
+        const library = JSON.parse(localStorage.getItem("library")) || [];
+
+        if (library.length === 0) {
+          libraryList.innerHTML = "<li style='color:gray;'>No saved songs</li>";
+        } else {
+          libraryList.innerHTML = library
+            .map(
+              (song) => `
+                <li>
+                  <div class="li-song" style="display:flex; align-items:center;">
+                    <img src="images/music.svg" alt="Music Icon" />
+                    <p style="margin-left:10px;">${song}</p>
+                  </div>
+                </li>`
+            )
+            .join("");
+        }
+      </script>
 
       <!-- Main Content (Dynamic) -->
       <div class="main-content" id="main-content">
@@ -90,6 +114,7 @@
         </div>
       </div>
       <div class="panel">
+
       <div class="controls">
           <div class="tooltip-container">
             <img
@@ -145,6 +170,7 @@
             <span class="tooltip-text">Shuffle</span>
           </div>
       </div>
+
         <div class="progress-bar">
           <p class="current-duration">00:00</p>
           <input
@@ -157,7 +183,6 @@
           />
           <p class="duration">00:00</p>
         </div>
-
       </div>
       <div class="volume">
         <div class="tooltip-container" >
@@ -172,111 +197,110 @@
         </div>
         <input id="volume" type="range" max="100" min="0" value="100" />
       </div>
-
     </div>
     <div id="auth-backdrop" class="hidden"></div>
 
     <div class="auth-container hidden" id="auth-section">
-        <button class="close-btn" id="close-auth">&times;</button>
-        <div class="auth-toggle">
-            <button id="show-login" class="active">Login</button>
-            <button id="show-signup">Sign Up</button>
-        </div>
+      <button class="close-btn" id="close-auth">&times;</button>
+      <div class="auth-toggle">
+        <button id="show-login" class="active">Login</button>
+        <button id="show-signup">Sign Up</button>
+      </div>
 
-        <form id="login-form" class="auth-form">
-            <h2>Login</h2>
-            <input type="email" placeholder="Email" required />
-            <input type="password" placeholder="Password" required />
-            <button type="submit">Log In</button>
-        </form>
+      <form id="login-form" class="auth-form">
+        <h2>Login</h2>
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Log In</button>
+      </form>
 
+      <div id="status"></div>
 
-    <script>
-      // Load Home Page by default
-      window.addEventListener("DOMContentLoaded", () => {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "bright") {
-          document.body.classList.add("bright-mode");
-        }
-
-        // Load home page dynamically, then bind playlist cards
-        loadPage("home.html").then(() => {
-          bindPlaylistCards(); // ✅ Reattach playlist click events after content load
-        });
-      });
-
-      // Dynamic Page Loader
-      async function loadPage(page) {
-        const res = await fetch(page);
-        const content = await res.text();
-        document.getElementById("main-content").innerHTML = content;
-
-        // ✅ Reapply theme
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "bright") {
-          document.body.classList.add("bright-mode");
-        } else {
-          document.body.classList.remove("bright-mode");
-        }
-
-        // ✅ Rebind card click listeners after DOM updates
-        setTimeout(() => {
-          if (typeof bindPlaylistCards === "function") {
-            bindPlaylistCards();
+      <script>
+        // Load Home Page by default
+        window.addEventListener("DOMContentLoaded", () => {
+          const savedTheme = localStorage.getItem("theme");
+          if (savedTheme === "bright") {
+            document.body.classList.add("bright-mode");
           }
-        }, 50);
 
-        // ✅ Re-attach theme toggle event listener if present
-        const themeToggle = document.getElementById("theme-toggle");
-        if (themeToggle) {
-          updateThemeToggleText(themeToggle);
-          themeToggle.addEventListener("click", function () {
-            document.body.classList.toggle("bright-mode");
-            localStorage.setItem(
-              "theme",
-              document.body.classList.contains("bright-mode")
-                ? "bright"
-                : "dark"
-            );
-            updateThemeToggleText(this);
+          // Load home page dynamically, then bind playlist cards
+          loadPage("home.html").then(() => {
+            bindPlaylistCards(); // ✅ Reattach playlist click events after content load
           });
-        }
-      }
-
-      // Update toggle text based on current theme
-      function updateThemeToggleText(button) {
-        if (document.body.classList.contains("bright-mode")) {
-          button.textContent = "Light Mode";
-        } else {
-          button.textContent = "Dark Mode";
-        }
-      }
-
-      // Sidebar Navigation
-      const homeBtn = document.getElementById("home-logo");
-      const searchBtn = document.getElementById("searchbar");
-
-      homeBtn.addEventListener("click", () => {
-        loadPage("home.html").then(() => {
-          bindPlaylistCards(); // ✅ ensures playlist clicks work again
         });
-        setActive(homeBtn);
-      });
 
-      searchBtn.addEventListener("click", () => {
-        loadPage("search.html");
-        setActive(searchBtn);
-      });
+        // Dynamic Page Loader
+        async function loadPage(page) {
+          const res = await fetch(page);
+          const content = await res.text();
+          document.getElementById("main-content").innerHTML = content;
 
-      function setActive(activeBtn) {
-        document
-          .querySelectorAll("aside .header p")
-          .forEach((btn) => btn.classList.remove("active"));
-        activeBtn.classList.add("active");
-      }
-    </script>
+          // ✅ Reapply theme
+          const savedTheme = localStorage.getItem("theme");
+          if (savedTheme === "bright") {
+            document.body.classList.add("bright-mode");
+          } else {
+            document.body.classList.remove("bright-mode");
+          }
 
+          // ✅ Rebind card click listeners after DOM updates
+          setTimeout(() => {
+            if (typeof bindPlaylistCards === "function") {
+              bindPlaylistCards();
+            }
+          }, 50);
 
-    <script src="script.js"></script>
+          // ✅ Re-attach theme toggle event listener if present
+          const themeToggle = document.getElementById("theme-toggle");
+          if (themeToggle) {
+            updateThemeToggleText(themeToggle);
+            themeToggle.addEventListener("click", function () {
+              document.body.classList.toggle("bright-mode");
+              localStorage.setItem(
+                "theme",
+                document.body.classList.contains("bright-mode")
+                  ? "bright"
+                  : "dark"
+              );
+              updateThemeToggleText(this);
+            });
+          }
+        }
+
+        // Update toggle text based on current theme
+        function updateThemeToggleText(button) {
+          if (document.body.classList.contains("bright-mode")) {
+            button.textContent = "Light Mode";
+          } else {
+            button.textContent = "Dark Mode";
+          }
+        }
+
+        // Sidebar Navigation
+        const homeBtn = document.getElementById("home-logo");
+        const searchBtn = document.getElementById("searchbar");
+
+        homeBtn.addEventListener("click", () => {
+          loadPage("home.html").then(() => {
+            bindPlaylistCards(); // ✅ ensures playlist clicks work again
+          });
+          setActive(homeBtn);
+        });
+
+        searchBtn.addEventListener("click", () => {
+          loadPage("search.html");
+          setActive(searchBtn);
+        });
+
+        function setActive(activeBtn) {
+          document
+            .querySelectorAll("aside .header p")
+            .forEach((btn) => btn.classList.remove("active"));
+          activeBtn.classList.add("active");
+        }
+      </script>
+
+      <script src="script.js"></script>
   </body>
 </html>
