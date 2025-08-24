@@ -30,6 +30,9 @@ async function getSongs(folder) {
   div.innerHTML = response;
   let list = div.getElementsByTagName("a");
 
+  // Load saved library once
+  let savedLibrary = JSON.parse(localStorage.getItem("library")) || [];
+
   for (let i = 0; i < list.length; i++) {
     const element = list[i];
     if (element.href.endsWith(".mp3")) {
@@ -41,14 +44,38 @@ async function getSongs(folder) {
   SongDiv.innerHTML = "";
 
   for (const song of Songs) {
+    const songName = song.replace(".mp3", "");
+    const isInLibrary = savedLibrary.includes(songName);
+    const heartFill = isInLibrary ? "red" : "none";
+    const disabledAttr = isInLibrary ? "disabled" : "";
+
     SongDiv.innerHTML += `
       <li>
-        <div class="li-song">
-          <img src="images/music.svg" alt="">
-          <p>${song.replace(".mp3", "")}</p>
+        <div class="li-song" style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; cursor:pointer;">
+            <img src="images/music.svg" alt="">
+            <p style="margin-left:10px;">${songName}</p>
+          </div>
+          <button class="add-to-library" data-song="${songName}" aria-label="Add to Library" title="Add to Library" style="background:none; border:none; cursor:pointer;" ${disabledAttr}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="${heartFill}" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42
+                4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5
+                3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55
+                11.54L12 21.35z"/>
+            </svg>
+          </button>
         </div>
       </li>`;
   }
+
+  // Attach event listeners for "Add to Library" buttons
+  document.querySelectorAll(".add-to-library").forEach(button => {
+    button.addEventListener("click", function (e) {
+      e.stopPropagation(); // prevent li click event
+      const songName = this.getAttribute("data-song");
+      addToLibrary(songName, this);
+    });
+  });
 
   if (Songs.length > 0) {
     currentSongIndex = 0;
@@ -216,10 +243,15 @@ async function main() {
 
 document.querySelector("#volume").addEventListener("change", (e) => {
   currentSong.volume = parseInt(e.target.value) / 100;
-  document.querySelector(".volume>img").src = currentSong.volume > 0 ? "images/volume.svg" : "images/mute.svg";
+
+  if (currentSong.volume > 0) {
+    document.querySelector(".volume img").src = "images/volume.svg";
+  }
 });
 
-document.querySelector(".volume>img").addEventListener("click", (e) => {
+// Mute/unmute
+document.querySelector(".volume img").addEventListener("click", (e) => {
+
   const volumeInput = document.querySelector("#volume");
   if (e.target.src.includes("volume.svg")) {
     e.target.src = "images/mute.svg";
@@ -272,6 +304,8 @@ function filterSongs(query) {
   });
 }
 
+
+
 document.addEventListener("DOMContentLoaded", () => main());
 
 document.getElementById("shuffle").addEventListener("click", () => {
@@ -288,6 +322,40 @@ document.getElementById("loop").addEventListener("click", () => {
 initializeKeyboardShortcuts();
 
 
+// ===== LIBRARY FEATURE =====
+
+// Add song to localStorage and update heart color
+function addToLibrary(songName, button) {
+  let savedLibrary = JSON.parse(localStorage.getItem("library")) || [];
+
+  if (!savedLibrary.includes(songName)) {
+    savedLibrary.push(songName);
+    localStorage.setItem("library", JSON.stringify(savedLibrary));
+  }
+  // Make heart red and disable button to prevent duplicate adding
+  button.querySelector("svg path").setAttribute("fill", "red");
+  button.disabled = true;
+}
+
+// Attach event listeners to all Add buttons and initialize hearts
+document.addEventListener("DOMContentLoaded", () => {
+  let savedLibrary = JSON.parse(localStorage.getItem("library")) || [];
+
+  document.querySelectorAll(".add-to-library").forEach(button => {
+    const songName = button.getAttribute("data-song");
+
+    // If song already in library, make heart red and disable button
+    if (savedLibrary.includes(songName)) {
+      button.querySelector("svg path").setAttribute("fill", "red");
+      button.disabled = true;
+    }
+
+    button.addEventListener("click", function (e) {
+      e.stopPropagation(); // prevent event bubbling if needed
+      addToLibrary(songName, this);
+    });
+  });
+});
 
 // // Card click to switch playlist
 // Array.from(document.getElementsByClassName("card")).forEach((e) => {
