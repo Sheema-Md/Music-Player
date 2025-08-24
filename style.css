@@ -98,6 +98,56 @@ button.active {
 }
 
 
+#google_translate_element {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.goog-te-combo {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1.5px solid #232323;
+  background: #232323;
+  color: #fff;
+  font-family: "Poppins", "Montserrat", sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: border 0.2s, box-shadow 0.2s;
+  margin-bottom: 6px;
+}
+
+/* Simple highlight on focus (no green background) */
+.goog-te-combo:focus {
+  border-color: #1db954 !important;
+  box-shadow: 0 0 0 2px rgba(29,185,84,0.18);
+  outline: none;
+}
+
+/* Green border on hover for interactive feel */
+.goog-te-combo:hover {
+  border-color: #1db954 !important;
+}
+
+
+.goog-te-combo option:checked {
+  color: #1db954 !important;
+}
+
+/* Bright mode support */
+body.bright-mode .goog-te-combo {
+  background: #e0e0e0 !important;
+  color: #222 !important;
+  border-color: #b3b3b3 !important;
+}
+
+body.bright-mode .goog-te-combo:focus {
+  border-color: #1db954 !important;
+  box-shadow: 0 0 0 2px rgba(29,185,84,0.18);
+}
+
+
+/* --- End Google Translate Widget Styles --- */
 
 .header h2 {
   font-size: 26px;
