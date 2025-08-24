@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <div id="google_translate_element"></div>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -21,12 +24,73 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
+    
   </head>
 
 
 
   <body>
+   
+  <!-- Google Translate Widget -->
+<div id="google_translate_element"></div>
+
+<style>
+  /* Positioning & Container Styling */
+  #google_translate_element {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 999;
+    background-color: #1e1e1e; /* Dark background */
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.4);
+  }
+
+  /* Dropdown Styling */
+  #google_translate_element select {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border: none;
+    padding: 4px 6px;
+    font-size: 12px;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  /* Hover Effect */
+  #google_translate_element select:hover {
+    background-color: #3a3a3a;
+  }
+
+  /* Remove Google Branding Background */
+  .goog-te-gadget-simple {
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  /* Hide Google Translate default icon */
+  .goog-te-gadget-icon {
+    display: none !important;
+  }
+</style>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      { pageLanguage: 'en' },
+      'google_translate_element'
+    );
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- End Google Translate Widget -->
+
+  
+
+ 
     <main>
       <!-- Sidebar -->
       <aside>
