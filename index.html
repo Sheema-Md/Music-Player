@@ -27,7 +27,10 @@
     
   </head>
 
-  <body>
+  
+<body>
+  
+  
    
   
 
@@ -43,7 +46,7 @@
             <img src="favicon.ico" alt=""melody logo" class="logo"/>
           <h2>Melody</h2>
           </div>
-
+          <div id="google_translate_element" style="margin-top:10px;"></div>
           <p id="home-logo" class="active">
             <i class="fa-solid fa-house"></i> Home
           </p>
@@ -309,7 +312,21 @@
             .forEach((btn) => btn.classList.remove("active"));
           activeBtn.classList.add("active");
         }
-      </script>
+
+      
+      
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {pageLanguage: 'en'}, 
+      'google_translate_element'
+    );
+  }
+  
+</script>
+
+<script type="text/javascript" 
+  src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
 
       <script src="script.js"></script>
   </body>
