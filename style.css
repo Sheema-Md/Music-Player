@@ -2516,4 +2516,5 @@ body.bright-mode .auth-form input:focus {
     to {
         transform: rotate(360deg);
     }
-}
+  }
+  /*responsive*/

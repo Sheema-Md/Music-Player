@@ -423,7 +423,7 @@ function initControls() {
   });
 }
 
-/* =============== BOOT =============== */
+/* =============== BOOT ============= */
 document.addEventListener("DOMContentLoaded", () => {
   initControls();
   updateLibraryUI();
