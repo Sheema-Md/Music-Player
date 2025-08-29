@@ -3,32 +3,32 @@ let currentSongIndex = 0;
 let currentSong = new Audio();
 let isShuffle = false;
 let isRepeat = false;          // single-track repeat
-let isLoop = false;            // playlist loop (optional)
+let isLoop = false;            // playlist loop
 let playedIndices = [];
-let Songs = [];                // array of filenames (with .mp3)
-let currFolder = "";           // e.g. "musics/PartySongs"
+let Songs = [];
+let currFolder = "";
 
 /* =============== DOM =============== */
-const seekbar   = document.getElementById("seek-bar");
-const playBtn   = document.getElementById("play");
-const prevBtn   = document.getElementById("previous");
-const nextBtn   = document.getElementById("next");
+const seekbar = document.getElementById("seek-bar");
+const playBtn = document.getElementById("play");
+const prevBtn = document.getElementById("previous");
+const nextBtn = document.getElementById("next");
 const volumeImg = document.querySelector(".volume img");
 const volumeInp = document.getElementById("volume");
-const visualizer= document.getElementById("visualizer");
+const visualizer = document.getElementById("visualizer");
 
 const currentSongName = document.querySelector(".current-song p");
-const currentSongImg  = document.querySelector(".current-song img");
+const currentSongImg = document.querySelector(".current-song img");
 
-const libraryListEl   = document.getElementById("libraryList");
-const recentlyListEl  = document.getElementById("recentlyPlayedList");
+const libraryListEl = document.getElementById("libraryList");
+const recentlyListEl = document.getElementById("recentlyPlayedList");
 
 /* =============== HELPERS =============== */
 function convertSeconds(seconds) {
   if (!isFinite(seconds)) return "00:00";
   let minutes = Math.floor(seconds / 60);
   let remainingSeconds = Math.floor(seconds % 60);
-  return `${String(minutes).padStart(2,"0")}:${String(remainingSeconds).padStart(2,"0")}`;
+  return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
 }
 
 function ensureSongsContainer() {
@@ -49,7 +49,6 @@ function ensureSongsContainer() {
 // Library storage: always [{name, folder}]
 const getLibrary = () => JSON.parse(localStorage.getItem("library") || "[]");
 const saveLibrary = (data) => localStorage.setItem("library", JSON.stringify(data));
-const inLibrary = (name, folder) => getLibrary().some(x => x.name === name && x.folder === folder);
 
 function setVisualizer(paused) {
   if (!visualizer) return;
@@ -86,7 +85,7 @@ function updateRecentlyPlayedUI(entry) {
 function hydrateRecentlyPlayedFromStorage() {
   const recent = localStorage.getItem("recent");
   if (recent) {
-    try { updateRecentlyPlayedUI(JSON.parse(recent)); } catch {}
+    try { updateRecentlyPlayedUI(JSON.parse(recent)); } catch { }
   } else {
     recentlyListEl.innerHTML = "";
   }
@@ -117,24 +116,18 @@ async function getSongs(folder) {
     const isInLib = lib.some(x => x.name === songName && x.folder === folder);
     const activeClass = isInLib ? "active" : "";
 
-    // create list item
     const li = document.createElement("li");
     li.style.background = getRandomGradient();
 
-    // album art attempt
-    // album art attempt
-const img = new Image();
-img.classList.add("album-art");
-
-
-const jpg = `images/${songName}.jpg`;
-const png = `images/${songName}.png`;
-img.src = jpg;
-img.onerror = () => {
-  img.src = png;
-  img.onerror = () => { img.src = "images/music.svg"; };
-};
-
+    const img = new Image();
+    img.classList.add("album-art");
+    const jpg = `images/${songName}.jpg`;
+    const png = `images/${songName}.png`;
+    img.src = jpg;
+    img.onerror = () => {
+      img.src = png;
+      img.onerror = () => { img.src = "images/music.svg"; };
+    };
 
     li.innerHTML = `
       <div class="li-song" style="display:flex; align-items:center; cursor:pointer;">
@@ -152,13 +145,11 @@ img.onerror = () => {
     `;
     ul.appendChild(li);
 
-    // click to play
     li.querySelector(".li-song").addEventListener("click", () => {
       currentSongIndex = Songs.findIndex(s => s === song);
       playMusic(songName);
     });
 
-    // heart toggle
     li.querySelector(".add-to-library").addEventListener("click", (e) => {
       e.stopPropagation();
       addToLibrary(songName, folder, e.currentTarget);
@@ -170,7 +161,6 @@ img.onerror = () => {
   currentSongName.textContent = "Select a song";
   setVisualizer(true);
 }
-
 
 /* =============== PLAYER =============== */
 function playMusic(trackName) {
@@ -230,7 +220,7 @@ function playNextSong() {
 function playPreviousSong() {
   if (!Songs.length) return;
   currentSongIndex = (currentSongIndex - 1 + Songs.length) % Songs.length;
-  playMusic(Songs[currentSongIndex].replace(".mp3",""));
+  playMusic(Songs[currentSongIndex].replace(".mp3", ""));
 }
 
 function togglePlayPause() {
@@ -245,6 +235,7 @@ function togglePlayPause() {
     setVisualizer(true);
   }
 }
+
 /* =============== STYLING HELPERS =============== */
 function getRandomGradient() {
   const gradients = [
@@ -259,7 +250,6 @@ function getRandomGradient() {
   return gradients[Math.floor(Math.random() * gradients.length)];
 }
 
-
 /* =============== LIBRARY =============== */
 function updateLibraryUI() {
   const lib = getLibrary();
@@ -273,19 +263,15 @@ function updateLibraryUI() {
     const li = document.createElement("li");
     li.style.background = getRandomGradient();
 
-    // album art attempt
-const img = new Image();
-img.classList.add("album-art");
-
-
-const jpg = `images/${entry.name}.jpg`;
-const png = `images/${entry.name}.png`;
-img.src = jpg;
-img.onerror = () => {
-  img.src = png;
-  img.onerror = () => { img.src = "images/music.svg"; };
-};
-
+    const img = new Image();
+    img.classList.add("album-art");
+    const jpg = `images/${entry.name}.jpg`;
+    const png = `images/${entry.name}.png`;
+    img.src = jpg;
+    img.onerror = () => {
+      img.src = png;
+      img.onerror = () => { img.src = "images/music.svg"; };
+    };
 
     li.innerHTML = `
       <div class="li-song" style="display:flex; align-items:center; cursor:pointer;">
@@ -295,7 +281,7 @@ img.onerror = () => {
 
     li.addEventListener("click", async () => {
       await getSongs(entry.folder);
-      const idx = Songs.findIndex(s => s.replace(".mp3","") === entry.name);
+      const idx = Songs.findIndex(s => s.replace(".mp3", "") === entry.name);
       if (idx !== -1) {
         currentSongIndex = idx;
         playMusic(entry.name);
@@ -304,7 +290,6 @@ img.onerror = () => {
     libraryListEl.appendChild(li);
   });
 }
-
 
 function addToLibrary(name, folder, buttonEl) {
   let lib = getLibrary();

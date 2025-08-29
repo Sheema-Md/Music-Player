@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <div id="google_translate_element"></div>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -15,21 +12,24 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 
-
 <body>
+  <!-- 🔄 Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader">
+      <i class="fa-solid fa-spinner"></i>
+      <h2 id="loading-text">Here We Go<span class="dots"></span></h2>
+    </div>
+  </div>
+
   <main>
     <!-- Sidebar -->
     <aside>
       <div class="header">
-
         <div class="logo-title">
-          <img src="favicon.ico" alt="" melody logo" class="logo" />
+          <img src="favicon.ico" alt="melody logo" class="logo"/>
           <h2>Melody</h2>
         </div>
         <div id="google_translate_element" style="margin-top:10px;"></div>
@@ -42,81 +42,66 @@
       </div>
 
       <!-- Recently Played -->
-<div class="playlist">
-  <p>Recently Played</p>
-  <div class="lists">
-    <ul id="recentlyPlayedList"></ul>
-  </div>
-</div>
+      <div class="playlist">
+        <p>Recently Played</p>
+        <div class="lists">
+          <ul id="recentlyPlayedList"></ul>
+        </div>
+      </div>
 
-<!-- Library -->
-<p>Your Library</p>
-<div class="lists">
-  <ul id="libraryList"></ul> <!-- ✅ permanent library container -->
-</div>
-
-<!-- Playlist songs (dynamic) -->
-
+      <!-- Library -->
+      <div class="playlist">
+        <p>Your Library</p>
+        <div class="lists">
+          <ul id="libraryList"></ul>
+        </div>
+      </div>
     </aside>
 
-    
-    <!-- Main Content (Dynamic) -->
+    <!-- Main Content -->
     <div class="main-content" id="main-content">
-  
->
-  
-  <!-- Songs will be appended here -->
-  <div id="songs-container"></div>
-</div>
-
+      <!-- Songs will be appended here -->
+      <div id="songs-container"></div>
+    </div>
   </main>
 
   <!-- Music Player -->
   <div class="player">
+    <!-- Spotify-like Visualizer -->
     <div class="music-visualizer" id="visualizer">
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
 
     <div class="current-song">
       <div>
         <img src="images/music.svg" alt="" />
         <p>Song Name</p>
-        <svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="Svg-sc-ytk21e-0 ceOVVX">
-          <path
-            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm11.748-1.97a.75.75 0 0 0-1.06-1.06l-4.47 4.47-1.405-1.406a.75.75 0 1 0-1.061 1.06l2.466 2.467 5.53-5.53z">
-          </path>
+        <svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16">
+          <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm11.748-1.97a.75.75 0 0 0-1.06-1.06l-4.47 4.47-1.405-1.406a.75.75 0 1 0-1.061 1.06l2.466 2.467 5.53-5.53z"></path>
         </svg>
       </div>
     </div>
-    <div class="panel">
 
+    <div class="panel">
       <div class="controls">
         <div class="tooltip-container">
-          <img class="loop" id="loop" src="images/loop.svg" alt="Repeat" aria-label="Repeat" />
+          <img class="loop" id="loop" src="images/loop.svg" alt="Repeat" />
           <span class="tooltip-text">Repeat</span>
         </div>
-         
         <div class="tooltip-container">
-          <img class="previous" id="previous" src="images/previous.svg" alt="Previous" aria-label="Previous" />
+          <img class="previous" id="previous" src="images/previous.svg" alt="Previous" />
           <span class="tooltip-text">Previous</span>
         </div>
-
         <div class="tooltip-container">
-          <img id="play" src="images/play.svg" alt="Play/Pause" aria-label="Play/Pause" />
+          <img id="play" src="images/play.svg" alt="Play/Pause" />
           <span class="tooltip-text">Play/Pause</span>
         </div>
-
         <div class="tooltip-container">
-          <img class="next" id="next" src="images/next.svg" alt="Next" aria-label="Next" />
+          <img class="next" id="next" src="images/next.svg" alt="Next" />
           <span class="tooltip-text">Next</span>
         </div>
-
         <div class="tooltip-container">
-          <img class="shuffle" id="shuffle" src="images/shuffle.svg" alt="Shuffle" aria-label="Shuffle" />
+          <img class="shuffle" id="shuffle" src="images/shuffle.svg" alt="Shuffle" />
           <span class="tooltip-text">Shuffle</span>
         </div>
       </div>
@@ -127,16 +112,18 @@
         <p class="duration">00:00</p>
       </div>
     </div>
+
     <div class="volume">
       <div class="tooltip-container">
-        <img src="images/volume.svg" alt="Volume" role="button" tabindex="0" aria-label="Volume" />
+        <img src="images/volume.svg" alt="Volume" />
         <span class="tooltip-text">Volume</span>
       </div>
       <input id="volume" type="range" max="100" min="0" value="100" />
     </div>
   </div>
-  <div id="auth-backdrop" class="hidden"></div>
 
+  <!-- Auth Section -->
+  <div id="auth-backdrop" class="hidden"></div>
   <div class="auth-container hidden" id="auth-section">
     <button class="close-btn" id="close-auth">&times;</button>
     <div class="auth-toggle">
@@ -152,106 +139,74 @@
     </form>
 
     <div id="status"></div>
+  </div>
 
-    <script>
-      // Load Home Page by default
-      window.addEventListener("DOMContentLoaded", () => {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "bright") {
-          document.body.classList.add("bright-mode");
-        }
+  <!-- Scripts -->
+  <script>
+    // Sidebar Navigation & Page Load
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "bright") document.body.classList.add("bright-mode");
 
-        // Load home page dynamically, then bind playlist cards
-        loadPage("home.html").then(() => {
-          bindPlaylistCards(); // ✅ Reattach playlist click events after content load
-        });
+      loadPage("home.html").then(() => {
+        if (typeof bindPlaylistCards === "function") bindPlaylistCards();
       });
+    });
 
-      // Dynamic Page Loader
-      async function loadPage(page) {
-        const res = await fetch(page);
-        const content = await res.text();
-        document.getElementById("main-content").innerHTML = content;
+    async function loadPage(page) {
+      const res = await fetch(page);
+      const content = await res.text();
+      document.getElementById("main-content").innerHTML = content;
 
-        // ✅ Reapply theme
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "bright") {
-          document.body.classList.add("bright-mode");
-        } else {
-          document.body.classList.remove("bright-mode");
-        }
+      // Apply theme again
+      const savedTheme = localStorage.getItem("theme");
+      document.body.classList.toggle("bright-mode", savedTheme === "bright");
 
-        // ✅ Rebind card click listeners after DOM updates
-        setTimeout(() => {
-          if (typeof bindPlaylistCards === "function") {
-            bindPlaylistCards();
-          }
-        }, 50);
+      setTimeout(() => {
+        if (typeof bindPlaylistCards === "function") bindPlaylistCards();
+      }, 50);
 
-        // ✅ Re-attach theme toggle event listener if present
-        const themeToggle = document.getElementById("theme-toggle");
-        if (themeToggle) {
+      const themeToggle = document.getElementById("theme-toggle");
+      if (themeToggle) {
+        updateThemeToggleText(themeToggle);
+        themeToggle.addEventListener("click", function () {
+          document.body.classList.toggle("bright-mode");
+          localStorage.setItem("theme", document.body.classList.contains("bright-mode") ? "bright" : "dark");
           updateThemeToggleText(themeToggle);
-          themeToggle.addEventListener("click", function () {
-            document.body.classList.toggle("bright-mode");
-            localStorage.setItem(
-              "theme",
-              document.body.classList.contains("bright-mode")
-                ? "bright"
-                : "dark"
-            );
-            updateThemeToggleText(this);
-          });
-        }
-      }
-
-      // Update toggle text based on current theme
-      function updateThemeToggleText(button) {
-        if (document.body.classList.contains("bright-mode")) {
-          button.textContent = "Light Mode";
-        } else {
-          button.textContent = "Dark Mode";
-        }
-      }
-
-      // Sidebar Navigation
-      const homeBtn = document.getElementById("home-logo");
-      const searchBtn = document.getElementById("searchbar");
-
-      homeBtn.addEventListener("click", () => {
-        loadPage("home.html").then(() => {
-          bindPlaylistCards(); // ✅ ensures playlist clicks work again
         });
-        setActive(homeBtn);
-      });
-
-      searchBtn.addEventListener("click", () => {
-        loadPage("search.html");
-        setActive(searchBtn);
-      });
-
-      function setActive(activeBtn) {
-        document
-          .querySelectorAll("aside .header p")
-          .forEach((btn) => btn.classList.remove("active"));
-        activeBtn.classList.add("active");
       }
+    }
 
+    function updateThemeToggleText(toggle) {
+      toggle.textContent = document.body.classList.contains("bright-mode") ? "Light Mode" : "Dark Mode";
+    }
 
+    // Sidebar navigation
+    document.getElementById("home-logo").addEventListener("click", () => {
+      setActive("home-logo");
+      loadPage("home.html").then(() => bindPlaylistCards());
+    });
+    document.getElementById("searchbar").addEventListener("click", () => {
+      setActive("searchbar");
+      loadPage("search.html");
+    });
 
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-          { pageLanguage: 'en' },
-          'google_translate_element'
-        );
-      }
+    function setActive(id) {
+      document.querySelectorAll("aside .header p").forEach(p => p.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
 
-    </script>
+    // Hide loading screen
+    window.addEventListener("load", () => {
+      setTimeout(() => document.getElementById("loading-screen").classList.add("hidden"), 2000);
+    });
 
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-    </script>
-
-    <script src="script.js"></script>
+    // Google Translate
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({ pageLanguage: "en" }, "google_translate_element");
+    }
+  </script>
+  <script src="script.js"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-
 </html>
