@@ -45,289 +45,206 @@
           <div class="logo-title">
             <img src="favicon.ico" alt=""melody logo" class="logo"/>
           <h2>Melody</h2>
-          </div>
-          <div id="google_translate_element" style="margin-top:10px;"></div>
-          <p id="home-logo" class="active">
-            <i class="fa-solid fa-house"></i> Home
-          </p>
-          <p id="searchbar">
-            <i class="fa-solid fa-magnifying-glass"></i> Search
-          </p>
         </div>
-
-        <div class="playlist">
-          <p onclick="window.location.href='library.html'" style="cursor:pointer;">
-            <svg
-              data-encore-id="icon"
-              role="img"
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              class="Svg-sc-ytk21e-0 bneLcE"
-              width="20"
-              height="20"
-              style="vertical-align: middle; margin-right: 6px;"
-            >
-              <path
-                d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z"
-              ></path>
-            </svg>
-            Your Library
-          </p>
-          <div class="lists">
-            <ul id="libraryList"></ul>
-          </div>
-        </div>
-      </aside>
-
-      <script>
-        // Load saved songs in the sidebar
-        const libraryList = document.getElementById("libraryList");
-        const library = JSON.parse(localStorage.getItem("library")) || [];
-
-        if (library.length === 0) {
-          libraryList.innerHTML = "<li style='color:gray;'>No saved songs</li>";
-        } else {
-          libraryList.innerHTML = library
-            .map(
-              (song) => `
-                <li>
-                  <div class="li-song" style="display:flex; align-items:center;">
-                    <img src="images/music.svg" alt="Music Icon" />
-                    <p style="margin-left:10px;">${song}</p>
-                  </div>
-                </li>`
-            )
-            .join("");
-        }
-      </script>
-
-      <!-- Main Content (Dynamic) -->
-      <div class="main-content" id="main-content">
-        <!-- Home content will be dynamically loaded here -->
+        <div id="google_translate_element" style="margin-top:10px;"></div>
+        <p id="home-logo" class="active">
+          <i class="fa-solid fa-house"></i> Home
+        </p>
+        <p id="searchbar">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </p>
       </div>
-    </main>
 
-    <!-- Music Player -->
-    <div class="player">
-      <div class="current-song">
-        <div>
-          <img src="images/music.svg" alt="" />
-          <p>Song Name</p>
-          <svg
-            data-encore-id="icon"
-            role="img"
-            aria-hidden="true"
-            viewBox="0 0 16 16"
-            class="Svg-sc-ytk21e-0 ceOVVX"
-          >
-            <path
-              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm11.748-1.97a.75.75 0 0 0-1.06-1.06l-4.47 4.47-1.405-1.406a.75.75 0 1 0-1.061 1.06l2.466 2.467 5.53-5.53z"
-            ></path>
+      <div class="playlist">
+        <p onclick="window.location.href='library.html'" style="cursor:pointer;">
+          <svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE" width="20" height="20" style="vertical-align: middle; margin-right: 6px;">
+            <path d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z"></path>
           </svg>
+          Your Library
+        </p>
+        <div class="lists">
+          <ul id="libraryList"></ul>
         </div>
       </div>
-      <div class="panel">
+    </aside>
 
-      <div class="controls">
-          <div class="tooltip-container">
-            <img
-              class="loop"
-              id="loop"
-              src="images/loop.svg"
-              alt="Repeat"
-              aria-label="Repeat"
-            />
-            <span class="tooltip-text">Repeat</span>
-          </div>
+    <div class="main-content" id="main-content"></div>
+  </main>
 
-          <div class="tooltip-container">
-            <img
-              class="previous"
-              id="previous"
-              src="images/previous.svg"
-              alt="Previous"
-              aria-label="Previous"
-            />
-            <span class="tooltip-text">Previous</span>
-          </div>
-
-          <div class="tooltip-container">
-            <img
-              id="play"
-              src="images/play.svg"
-              alt="Play/Pause"
-              aria-label="Play/Pause"
-            />
-            <span class="tooltip-text">Play/Pause</span>
-          </div>
-
-          <div class="tooltip-container">
-            <img
-              class="next"
-              id="next"
-              src="images/next.svg"
-              alt="Next"
-              aria-label="Next"
-            />
-            <span class="tooltip-text">Next</span>
-          </div>
-
-          <div class="tooltip-container">
-            <img
-              class="shuffle"
-              id="shuffle"
-              src="images/shuffle.svg"
-              alt="Shuffle"
-              aria-label="Shuffle"
-            />
-            <span class="tooltip-text">Shuffle</span>
-          </div>
-      </div>
-
-        <div class="progress-bar">
-          <p class="current-duration">00:00</p>
-          <input
-            type="range"
-            class="bar"
-            id="seek-bar"
-            value="0"
-            min="0"
-            max="100"
-          />
-          <p class="duration">00:00</p>
-        </div>
-      </div>
-      <div class="volume">
-        <div class="tooltip-container" >
-          <img
-            src="images/volume.svg"
-            alt="Volume"
-            role="button"
-            tabindex="0"
-            aria-label="Volume"
-          />
-          <span class="tooltip-text">Volume</span>
-        </div>
-        <input id="volume" type="range" max="100" min="0" value="100" />
+  <div class="player">
+    <div class="current-song">
+      <div>
+        <img src="images/music.svg" alt="" />
+        <p>Song Name</p>
+        <svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="Svg-sc-ytk21e-0 ceOVVX">
+          <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm11.748-1.97a.75.75 0 0 0-1.06-1.06l-4.47 4.47-1.405-1.406a.75.75 0 1 0-1.061 1.06l2.466 2.467 5.53-5.53z"></path>
+        </svg>
       </div>
     </div>
-    <div id="auth-backdrop" class="hidden"></div>
-
-    <div class="auth-container hidden" id="auth-section">
-      <button class="close-btn" id="close-auth">&times;</button>
-      <div class="auth-toggle">
-        <button id="show-login" class="active">Login</button>
-        <button id="show-signup">Sign Up</button>
+    <div class="panel">
+      <div class="controls">
+        <div class="tooltip-container">
+          <img class="loop" id="loop" src="images/loop.svg" alt="Repeat" aria-label="Repeat" />
+          <span class="tooltip-text">Repeat</span>
+        </div>
+        <div class="tooltip-container">
+          <img class="previous" id="previous" src="images/previous.svg" alt="Previous" aria-label="Previous" />
+          <span class="tooltip-text">Previous</span>
+        </div>
+        <div class="tooltip-container">
+          <img id="play" src="images/play.svg" alt="Play/Pause" aria-label="Play/Pause" />
+          <span class="tooltip-text">Play/Pause</span>
+        </div>
+        <div class="tooltip-container">
+          <img class="next" id="next" src="images/next.svg" alt="Next" aria-label="Next" />
+          <span class="tooltip-text">Next</span>
+        </div>
+        <div class="tooltip-container">
+          <img class="shuffle" id="shuffle" src="images/shuffle.svg" alt="Shuffle" aria-label="Shuffle" />
+          <span class="tooltip-text">Shuffle</span>
+        </div>
       </div>
+      <div class="progress-bar">
+        <p class="current-duration">00:00</p>
+        <input type="range" class="bar" id="seek-bar" value="0" min="0" max="100" />
+        <p class="duration">00:00</p>
+      </div>
+    </div>
+    <div class="volume">
+      <div class="tooltip-container">
+        <img src="images/volume.svg" alt="Volume" role="button" tabindex="0" aria-label="Volume" />
+        <span class="tooltip-text">Volume</span>
+      </div>
+      <input id="volume" type="range" max="100" min="0" value="100" />
+    </div>
+  </div>
 
-      <form id="login-form" class="auth-form">
-        <h2>Login</h2>
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Password" required />
-        <button type="submit">Log In</button>
-      </form>
+  <script>
+    const libraryList = document.getElementById("libraryList");
+    const library = JSON.parse(localStorage.getItem("library")) || [];
 
-      <div id="status"></div>
+    if (library.length === 0) {
+      libraryList.innerHTML = "<li style='color:gray;'>No saved songs</li>";
+    } else {
+      libraryList.innerHTML = library.map(song => `
+        <li>
+          <div class="li-song" style="display:flex; align-items:center;">
+            <img src="images/music.svg" alt="Music Icon" />
+            <p style="margin-left:10px;">${song}</p>
+          </div>
+        </li>`).join("");
+    }
 
-      <script>
-        // Load Home Page by default
-        window.addEventListener("DOMContentLoaded", () => {
-          const savedTheme = localStorage.getItem("theme");
-          if (savedTheme === "bright") {
-            document.body.classList.add("bright-mode");
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "bright") {
+        document.body.classList.add("bright-mode");
+      }
+      loadPage("home.html").then(() => {
+        bindPlaylistCards();
+        setupSearch();
+      });
+    });
+
+    async function loadPage(page) {
+      const res = await fetch(page);
+      const content = await res.text();
+      document.getElementById("main-content").innerHTML = content;
+
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "bright") {
+        document.body.classList.add("bright-mode");
+      } else {
+        document.body.classList.remove("bright-mode");
+      }
+
+      setTimeout(() => {
+        if (typeof bindPlaylistCards === "function") {
+          bindPlaylistCards();
+        }
+        setupSearch();
+      }, 50);
+
+      const themeToggle = document.getElementById("theme-toggle");
+      if (themeToggle) {
+        updateThemeToggleText(themeToggle);
+        themeToggle.addEventListener("click", function () {
+          document.body.classList.toggle("bright-mode");
+          localStorage.setItem("theme", document.body.classList.contains("bright-mode") ? "bright" : "dark");
+          updateThemeToggleText(themeToggle);
+        });
+      }
+    }
+
+    function setupSearch() {
+      const searchInput = document.getElementById("search-input");
+      const searchBtn = document.getElementById("search-btn");
+      const searchBar = document.getElementById("search-bar");
+      
+      if (searchInput && searchBtn) {
+        const performSearch = () => {
+          const query = searchInput.value.trim().toLowerCase();
+          const cards = document.querySelectorAll(".card");
+          
+          cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            card.style.display = (query === "" || text.includes(query)) ? "block" : "none";
+          });
+          
+          if (typeof filterSongs === "function") {
+            filterSongs(query);
           }
-
-          // Load home page dynamically, then bind playlist cards
-          loadPage("home.html").then(() => {
-            bindPlaylistCards(); // ✅ Reattach playlist click events after content load
+        };
+        
+        searchBtn.addEventListener("click", performSearch);
+        searchInput.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") performSearch();
+        });
+        searchInput.addEventListener("input", performSearch);
+      }
+      
+      if (searchBar) {
+        searchBar.addEventListener("input", (e) => {
+          const query = e.target.value.toLowerCase().trim();
+          const cards = document.querySelectorAll(".card, .artist-card, .video-card");
+          
+          cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            card.style.display = (query === "" || text.includes(query)) ? "block" : "none";
           });
         });
+      }
+    }
 
-        // Dynamic Page Loader
-        async function loadPage(page) {
-          const res = await fetch(page);
-          const content = await res.text();
-          document.getElementById("main-content").innerHTML = content;
+    function updateThemeToggleText(toggle) {
+      toggle.textContent = document.body.classList.contains("bright-mode") ? "Light Mode" : "Dark Mode";
+    }
 
-          // ✅ Reapply theme
-          const savedTheme = localStorage.getItem("theme");
-          if (savedTheme === "bright") {
-            document.body.classList.add("bright-mode");
-          } else {
-            document.body.classList.remove("bright-mode");
-          }
+    document.getElementById("home-logo").addEventListener("click", () => {
+      document.getElementById("home-logo").classList.add("active");
+      document.getElementById("searchbar").classList.remove("active");
+      loadPage("home.html").then(() => bindPlaylistCards());
+    });
 
-          // ✅ Rebind card click listeners after DOM updates
-          setTimeout(() => {
-            if (typeof bindPlaylistCards === "function") {
-              bindPlaylistCards();
-            }
-          }, 50);
+    document.getElementById("searchbar").addEventListener("click", () => {
+      document.getElementById("searchbar").classList.add("active");
+      document.getElementById("home-logo").classList.remove("active");
+      loadPage("search.html");
+    });
 
-          // ✅ Re-attach theme toggle event listener if present
-          const themeToggle = document.getElementById("theme-toggle");
-          if (themeToggle) {
-            updateThemeToggleText(themeToggle);
-            themeToggle.addEventListener("click", function () {
-              document.body.classList.toggle("bright-mode");
-              localStorage.setItem(
-                "theme",
-                document.body.classList.contains("bright-mode")
-                  ? "bright"
-                  : "dark"
-              );
-              updateThemeToggleText(this);
-            });
-          }
-        }
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loading-screen").classList.add("hidden");
+      }, 2000);
+    });
+  </script>
 
-        // Update toggle text based on current theme
-        function updateThemeToggleText(button) {
-          if (document.body.classList.contains("bright-mode")) {
-            button.textContent = "Light Mode";
-          } else {
-            button.textContent = "Dark Mode";
-          }
-        }
-
-        // Sidebar Navigation
-        const homeBtn = document.getElementById("home-logo");
-        const searchBtn = document.getElementById("searchbar");
-
-        homeBtn.addEventListener("click", () => {
-          loadPage("home.html").then(() => {
-            bindPlaylistCards(); // ✅ ensures playlist clicks work again
-          });
-          setActive(homeBtn);
-        });
-
-        searchBtn.addEventListener("click", () => {
-          loadPage("search.html");
-          setActive(searchBtn);
-        });
-
-        function setActive(activeBtn) {
-          document
-            .querySelectorAll("aside .header p")
-            .forEach((btn) => btn.classList.remove("active"));
-          activeBtn.classList.add("active");
-        }
-
-      
-      
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement(
-      {pageLanguage: 'en'}, 
-      'google_translate_element'
-    );
-  }
-  
-</script>
-
-<script type="text/javascript" 
-  src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-</script>
-
-      <script src="script.js"></script>
-  </body>
+  <script src="script.js"></script>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({ pageLanguage: "en" }, "google_translate_element");
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
 </html>

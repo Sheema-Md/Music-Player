@@ -183,22 +183,37 @@ const togglePlayPause = () => {
 
 const initializeKeyboardShortcuts = () => {
   document.addEventListener("keydown", (e) => {
+    // Don't trigger shortcuts when typing in input fields
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+      return;
+    }
+    
     switch (e.code) {
       case "Space":
         e.preventDefault();
         togglePlayPause();
         break;
+      case "Enter":
+        if (e.target.tagName !== 'INPUT') {
+          e.preventDefault();
+          togglePlayPause();
+        }
+        break;
       case "ArrowRight":
+        e.preventDefault();
         playNextSong();
         break;
       case "ArrowLeft":
+        e.preventDefault();
         playPreviousSong();
         break;
       case "ArrowUp":
+        e.preventDefault();
         currentSong.volume = Math.min(currentSong.volume + 0.1, 1);
         document.querySelector("#volume").value = currentSong.volume * 100;
         break;
       case "ArrowDown":
+        e.preventDefault();
         currentSong.volume = Math.max(currentSong.volume - 0.1, 0);
         document.querySelector("#volume").value = currentSong.volume * 100;
         break;
@@ -281,18 +296,47 @@ function bindPlaylistCards() {
 
 function filterSongs(query) {
   query = query.toLowerCase();
-  let filtered = Songs.filter(song => song.toLowerCase().includes(query));
+  let filtered = query === "" ? Songs : Songs.filter(song => song.toLowerCase().includes(query));
   let SongDiv = document.querySelector(".lists ul");
+  if (!SongDiv) return;
+  
+  let savedLibrary = JSON.parse(localStorage.getItem("library")) || [];
   SongDiv.innerHTML = "";
+  
   for (const song of filtered) {
+    const songName = song.replace(".mp3", "");
+    const isInLibrary = savedLibrary.includes(songName);
+    const heartFill = isInLibrary ? "red" : "none";
+    const disabledAttr = isInLibrary ? "disabled" : "";
+    
     SongDiv.innerHTML += `
       <li>
-        <div class="li-song">
-          <img src="images/music.svg" alt="">
-          <p>${song.replace(".mp3", "")}</p>
+        <div class="li-song" style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; cursor:pointer;">
+            <img src="images/music.svg" alt="">
+            <p style="margin-left:10px;">${songName}</p>
+          </div>
+          <button class="add-to-library" data-song="${songName}" aria-label="Add to Library" title="Add to Library" style="background:none; border:none; cursor:pointer;" ${disabledAttr}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="${heartFill}" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42
+                4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5
+                3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55
+                11.54L12 21.35z"/>
+            </svg>
+          </button>
         </div>
       </li>`;
   }
+  
+  // Reattach event listeners
+  document.querySelectorAll(".add-to-library").forEach(button => {
+    button.addEventListener("click", function (e) {
+      e.stopPropagation();
+      const songName = this.getAttribute("data-song");
+      addToLibrary(songName, this);
+    });
+  });
+  
   Array.from(document.querySelectorAll(".lists li")).forEach((e, index) => {
     e.addEventListener("click", () => {
       let realIndex = Songs.findIndex(s => s === filtered[index]);
@@ -337,87 +381,6 @@ function addToLibrary(songName, button) {
   button.disabled = true;
 }
 
-// Attach event listeners to all Add buttons and initialize hearts
-document.addEventListener("DOMContentLoaded", () => {
-  let savedLibrary = JSON.parse(localStorage.getItem("library")) || [];
-
-  document.querySelectorAll(".add-to-library").forEach(button => {
-    const songName = button.getAttribute("data-song");
-
-    // If song already in library, make heart red and disable button
-    if (savedLibrary.includes(songName)) {
-      button.querySelector("svg path").setAttribute("fill", "red");
-      button.disabled = true;
-    }
-
-    button.addEventListener("click", function (e) {
-      e.stopPropagation(); // prevent event bubbling if needed
-      addToLibrary(songName, this);
-    });
-  });
-});
-
-// // Card click to switch playlist
-// Array.from(document.getElementsByClassName("card")).forEach((e) => {
-//   e.addEventListener("click", async (item) => {
-//     await getSongs(`musics/${item.currentTarget.dataset.folder}`);
-//   });
-// });
 
 
 
-// const loginBtn = document.getElementById("login-btn");
-// const authSection = document.getElementById("auth-section");
-// const backdrop = document.getElementById("auth-backdrop");
-// const closeBtn = document.getElementById("close-auth");
-
-// loginBtn.addEventListener("click", () => {
-//   authSection.classList.add("show");
-//   authSection.classList.remove("hidden");
-//   backdrop.classList.add("show");
-// });
-
-// backdrop.addEventListener("click", closeModal);
-// closeBtn.addEventListener("click", closeModal);
-
-// function closeModal() {
-//   authSection.classList.remove("show");
-//   authSection.classList.add("hidden");
-//   backdrop.classList.remove("show");
-// }
-
-// document.getElementById("show-login").addEventListener("click", () => {
-//   document.getElementById("login-form").classList.remove("hidden");
-//   document.getElementById("signup-form").classList.add("hidden");
-//   document.getElementById("show-login").classList.add("active");
-//   document.getElementById("show-signup").classList.remove("active");
-// });
-
-// document.getElementById("show-signup").addEventListener("click", () => {
-//   document.getElementById("signup-form").classList.remove("hidden");
-//   document.getElementById("login-form").classList.add("hidden");
-//   document.getElementById("show-signup").classList.add("active");
-//   document.getElementById("show-login").classList.remove("active");
-// });
-
-
-
-
-// function updatePlaybackStatus() {
-//   const status = [];
-//   if (isShuffle) status.push("🔀 Shuffle ON");
-//   if (isRepeat) status.push("🔁 Loop ON");
-//   document.getElementById("status").textContent = status.join(" | ") || "▶ Normal Play";
-// }
-
-// document.getElementById("shuffle").addEventListener("click", () => {
-//   isShuffle = !isShuffle;
-//   document.getElementById("shuffle").classList.toggle("active");
-//   updatePlaybackStatus();
-// });
-
-// document.getElementById("loop").addEventListener("click", () => {
-//   isRepeat = !isRepeat;
-//   document.getElementById("loop").classList.toggle("active");
-//   updatePlaybackStatus();
-// });

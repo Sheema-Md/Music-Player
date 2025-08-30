@@ -30,52 +30,65 @@
 </script>
 
 <style>
-  .library-page {
-    max-width: 600px;
-    margin: 20px auto;
-    color: #1db954; /* spotify green */
-    font-family: 'Poppins', sans-serif;
-  }
-  .library-page h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+.library-page {
+  max-width: 600px;
+  margin: 20px auto;
+  color: #1db954; /* Spotify green */
+  font-family: 'Poppins', sans-serif;
+  padding: 0 10px;
+}
 
-  .library-list {
-    background: #121212;
-    padding: 20px;
-    border-radius: 10px;
-  }
+.library-page h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
 
-  .library-item {
-    display: flex;
-    justify-content: space-between;
-    background: #222;
-    color: #1db954;
-    padding: 10px 15px;
-    margin: 6px 0;
-    border-radius: 5px;
-    align-items: center;
-  }
+.library-list {
+  background: #121212;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
 
-  .library-item button {
-    background: #1db954;
-    border: none;
-    color: #000;
-    font-weight: 600;
-    padding: 5px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.3s ease;
-  }
+.library-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  color: #1db954;
+  padding: 10px 15px;
+  margin: 6px 0;
+  border-radius: 5px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
 
-  .library-item button:hover {
-    background: #17a44c;
-  }
+.library-item:hover {
+  background: #1a1a1a;
+  transform: scale(1.01);
+}
 
-  .library-list p {
-    text-align: center;
-    color: gray;
-    font-style: italic;
-  }
+.library-item button {
+  background: #1db954;
+  border: none;
+  color: #000;
+  font-weight: 600;
+  padding: 5px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.library-item button:hover {
+  background: #17a44c;
+  transform: scale(1.05);
+}
+
+.library-list p {
+  text-align: center;
+  color: gray;
+  font-style: italic;
+  margin-top: 12px;
+}
+
 </style>
